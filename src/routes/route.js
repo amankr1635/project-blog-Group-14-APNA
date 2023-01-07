@@ -9,12 +9,14 @@ router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
 
+//============= *All APis* ================
+
 router.post("/authors", authorController.createrAuthor); 
 router.post("/login", authorController.login)
-router.post("/blogs",midd.loginCheck,blogController.blogUser);
+router.post("/blogs",midd.loginCheck, blogController.blogUser);
 router.get("/blogs",midd.loginCheck,blogController.getBlogs);
 router.put("/blogs/:blogId",midd.loginCheck,midd.authorise,blogController.updateBlog);
-router.delete("/blogs/:blogId",midd.loginCheck,midd.authorise,blogController.deleteParam);
+router.delete("/blogs/:blogId",midd.loginCheck,midd.authorise, blogController.deleteParam);
 router.delete("/blogs",midd.loginCheck, blogController.deleteQuery);
 
 router.all("/*",function(req,res){

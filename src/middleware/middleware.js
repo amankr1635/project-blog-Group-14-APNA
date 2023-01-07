@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 const blogModel = require("../models/blogModel");
+const mongoose = require("mongoose");
+
+//============= *Authentication* ================
 
 const loginCheck = async function (req, res, next) {
   try {
@@ -9,7 +12,6 @@ const loginCheck = async function (req, res, next) {
         .status(400)
         .send({ status: false, msg: `headers is missing in request` });
     }
-
     const decodedToken = jwt.verify(
       hData,
       "thisIsASecretKeyOfAPNAgroup",
@@ -27,18 +29,23 @@ const loginCheck = async function (req, res, next) {
   }
 };
 
+//============= *Authorisation* ================
+
 const authorise = async function (req, res, next) {
   try {
-    const token = req.decodedToken;
+    const authorId = req.decodedToken.authorid;
     let blogId = req.params.blogId;
-    let authorId = token.authorid;
-
-    let extId = await blogModel.findOne({ _id: blogId });
-    if (!extId) {
+    if (!mongoose.Types.ObjectId.isValid(blogId)) {
+      return res
+        .status(404)
+        .send({ status: false, msg: "Blog Id is incorrect" });
+    }
+    let blog = await blogModel.findOne({ _id: blogId });
+    console.log(blog);
+    if (!blog) {
       return res.status(404).send({ msg: "blogId does not exist" });
     }
-    let extAuthId = extId.authorId;
-
+    let extAuthId = blog.authorId;
     if (authorId != extAuthId) {
       return res.send({
         status: false,

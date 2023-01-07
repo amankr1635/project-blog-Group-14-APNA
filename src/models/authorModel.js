@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//============= *Author Model* ================
+
 const authorSchema = new mongoose.Schema(
   {
     fname: {

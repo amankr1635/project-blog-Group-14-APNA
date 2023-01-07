@@ -6,6 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+//application/x-www-form-urlencoded
 mongoose.set('strictQuery', true)
 mongoose.connect("mongodb+srv://Amankr:pwwELCe59UIUh9mj@cluster0.oxwexg5.mongodb.net/project01(APNA)",{useNewUrlParser: true})
 .then(() =>console.log("MongoDb is connected"))
@@ -18,5 +19,5 @@ app.post('/test-me', function(){
 })
 
 app.listen(3000, function(){
-    console.log('Express app running on port' + (3000))
+    console.log('Express app running on port ' + (3000))
 });
