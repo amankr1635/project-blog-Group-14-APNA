@@ -76,7 +76,6 @@ const login = async function (req, res) {
     if (!email || !password) {
       return res.status(400).send({ status: false, msg: "Email or password is required" });
     }
-    console.log(req.body);
     let author = await authModel.findOne({ email, password });
     console.log(author);
     if (!author) {

@@ -122,7 +122,6 @@ const deleteParam = async function (req, res) {
 //============= *Delete/update Blog Which isDeleted false via query params* ================
 
 const deleteQuery = async function (req, res) {
-  console.log("deleteQuery");
   try {
     let data = req.query;
     if (Object.keys(data).length == 0){
